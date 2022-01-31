@@ -14,14 +14,4 @@ class Database {
       'password': password,
     });
   }
-
-  Future<String?> getUserProfileData(String? uid) async {
-    try {
-      var response =
-          await firebaseInstance.collection('users').doc(uid).get();
-      return response['password'];
-    } catch (e) {
-      print(e);
-    }
-  }
 }
