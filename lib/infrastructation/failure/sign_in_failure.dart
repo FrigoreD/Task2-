@@ -1,3 +1,5 @@
+
+
 class SignInWithEmailAndPasswordFailure implements Exception {
   final String message;
   const SignInWithEmailAndPasswordFailure([

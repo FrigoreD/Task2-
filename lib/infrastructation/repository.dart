@@ -6,11 +6,9 @@ import 'package:task2/infrastructation/stack.dart';
 
 import 'failure/sign_up_failure.dart';
 
-
-
 class LogOutFailure implements Exception {}
+
 class AuthRepository {
-  
   final userInStack = Stack<DataUser>();
   final firebase_auth.FirebaseAuth _firebaseAuth;
 
@@ -33,14 +31,14 @@ class AuthRepository {
     }
   }
 
-
   Future<void> signUp({required String email, required String password}) async {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-          Database().createUser(password: password, email: email, uid: currentUser.uid.toString() );
+      Database().createUser(
+          password: password, email: email, uid: currentUser.uid.toString());
     } on firebase_auth.FirebaseAuthException catch (e) {
-      SignUpWithEmailAndPasswordFailure.fromCode(e.code);
+      throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
       throw const SignUpWithEmailAndPasswordFailure();
     }

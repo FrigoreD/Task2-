@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:task2/application/app/app_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,8 +54,7 @@ class PasswordWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return StreamBuilder<QuerySnapshot>(
-        stream:
-            FirebaseFirestore.instance.collection('users').snapshots(),
+        stream: FirebaseFirestore.instance.collection('users').snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Text(
@@ -67,7 +65,10 @@ class PasswordWidget extends StatelessWidget {
             return const Text("Loading");
           }
           DocumentSnapshot doc = snapshot.data!.docs[0];
-          return Text('password:  ${doc['password']}', style: textTheme.headline5,);
+          return Text(
+            'password:  ${doc['password']}',
+            style: textTheme.headline5,
+          );
         });
   }
 }

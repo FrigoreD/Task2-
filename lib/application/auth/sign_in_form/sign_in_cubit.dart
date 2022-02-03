@@ -5,8 +5,9 @@ import 'package:task2/domain/email.dart';
 import 'package:task2/domain/password.dart';
 import 'package:task2/infrastructation/failure/sign_in_failure.dart';
 import 'package:task2/infrastructation/repository.dart';
-
+import 'dart:async';
 part 'sign_in_state.dart';
+
 
 class SignInCubit extends Cubit<SignInState> {
   SignInCubit(this._authRepository) : super(const SignInState());
@@ -18,9 +19,10 @@ class SignInCubit extends Cubit<SignInState> {
         email: email, status: Formz.validate([email, state.password])));
   }
 
-  void passwordChanged(String value){
+  void passwordChanged(String value) {
     final password = Password.dirty(value);
-    emit(state.copyWith(password: password,status: Formz.validate([state.email, password])));
+    emit(state.copyWith(
+        password: password, status: Formz.validate([state.email, password])));
   }
 
    Future<void> logInWithCredentials() async {

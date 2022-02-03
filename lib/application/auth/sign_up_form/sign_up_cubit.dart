@@ -6,6 +6,7 @@ import 'package:task2/infrastructation/failure/sign_up_failure.dart';
 import 'package:task2/infrastructation/repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:task2/domain/confirm_password.dart';
+import 'dart:async';
 
 part 'sign_up_state.dart';
 
