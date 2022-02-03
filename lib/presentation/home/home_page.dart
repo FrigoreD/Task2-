@@ -52,9 +52,11 @@ class PasswordWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final uid = FirebaseAuth.instance.currentUser!.uid.toString();
     final textTheme = Theme.of(context).textTheme;
-    return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('users').snapshots(),
+    return StreamBuilder<DocumentSnapshot>(
+        stream:
+            FirebaseFirestore.instance.collection('users').doc(uid).snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Text(
@@ -64,9 +66,9 @@ class PasswordWidget extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Text("Loading");
           }
-          DocumentSnapshot doc = snapshot.data!.docs[0];
+          Object? doc = snapshot.data!.get('password');
           return Text(
-            'password:  ${doc['password']}',
+            'password:  $doc',
             style: textTheme.headline5,
           );
         });
