@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:bloc/bloc.dart';
+import 'package:task2/infrastructation/database.dart';
 import 'package:task2/infrastructation/repository.dart';
 import 'package:task2/presentation/app/app.dart';
 
@@ -14,7 +15,12 @@ Future<void> main() async {
     statusBarColor: Colors.transparent,
   ));
   final authRepository = AuthRepository();
+  final firestore = Database();
   await authRepository.user.first;
-  BlocOverrides.runZoned(() => runApp(App(authRepository: authRepository)),
+  BlocOverrides.runZoned(
+      () => runApp(App(
+            authRepository: authRepository,
+            firestore: firestore,
+          )),
       blocObserver: AppBlocObserver());
 }
